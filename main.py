@@ -65,6 +65,7 @@ def main(args):
         pool_size=args.size,
         num_tasks=args.num_tasks,
         kernel_size=args.kernel_size,
+        dilation_rate=args.dilation_rate,
         top_k=args.top_k,
         batchwise_prompt=args.batchwise_prompt,
         prompt_key_init=args.prompt_key_init,

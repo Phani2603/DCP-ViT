@@ -1,0 +1,33 @@
+# Virtual environments
+myenv/
+env/
+venv/
+.env/
+
+# Output and checkpoints
+output/
+checkpoint/
+checkpoints/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Datasets
+local_datasets/
+data/
+datasets/
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db

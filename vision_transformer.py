@@ -340,7 +340,7 @@ class VisionTransformer(nn.Module):
             num_tasks=5, kernel_size=17, top_k=None, batchwise_prompt=False, prompt_key_init='uniform', head_type='token', use_prompt_mask=False,
             use_g_prompt=False, g_prompt_length=None, g_prompt_layer_idx=None, use_prefix_tune_for_g_prompt=False,
             use_e_prompt=False, e_prompt_layer_idx=None, use_prefix_tune_for_e_prompt=False, same_key_value=False, 
-            prompts_per_task=5, args=None):
+            prompts_per_task=5, dilation_rate=1, args=None):
         """
         Args:
             img_size (int, tuple): input image size
@@ -444,7 +444,7 @@ class VisionTransformer(nn.Module):
             self.e_prompt = EPrompt(length=prompt_length, embed_dim=embed_dim, num_tasks=self.num_tasks, kernel_size=kernel_size, embedding_key=embedding_key, prompt_init=prompt_init,
                     prompt_pool=prompt_pool, prompt_key=prompt_key, pool_size=pool_size, top_k=top_k, batchwise_prompt=batchwise_prompt,
                     prompt_key_init=prompt_key_init, num_layers=num_e_prompt, use_prefix_tune_for_e_prompt=use_prefix_tune_for_e_prompt,
-                    num_heads=num_heads, same_key_value=same_key_value, prompts_per_task=prompts_per_task)
+                    num_heads=num_heads, same_key_value=same_key_value, prompts_per_task=prompts_per_task, dilation_rate=dilation_rate)
         
         if not (use_g_prompt or use_e_prompt):
             attn_layer = Attention

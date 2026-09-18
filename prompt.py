@@ -15,7 +15,7 @@ class EPrompt(nn.Module):
     def __init__(self, length=5, embed_dim=768, num_tasks=10, kernel_size=17, embedding_key='mean', prompt_init='uniform', prompt_pool=False, 
                  prompt_key=False, pool_size=None, top_k=None, batchwise_prompt=False, prompt_key_init='uniform',
                  num_layers=1, use_prefix_tune_for_e_prompt=False, num_heads=-1, same_key_value=False,
-                 prompts_per_task=5):
+                 prompts_per_task=5, dilation_rate=1):
         super().__init__()
 
         self.length = length
@@ -38,7 +38,7 @@ class EPrompt(nn.Module):
 
         self.ker_size = kernel_size
         self.stride = 1
-        self.dilation = 1
+        self.dilation = dilation_rate
         self.conv_channels = 1 
 
 
@@ -339,8 +339,9 @@ class EPrompt(nn.Module):
         v_prompt_layer = batched_prompt[1] # num_heads, B,length, head_dim
         n_heads, batch_size, length, head_dim = k_prompt_layer.shape
         # print("K prompt layer shape: ", k_prompt_layer.shape)
-        length = length - self.ker_size + 1
-        head_dim = head_dim - self.ker_size + 1
+        eff_k = self.dilation * (self.ker_size - 1) + 1
+        length = length - eff_k + 1
+        head_dim = head_dim - eff_k + 1
         new_k_prompt_layer = torch.zeros((n_heads, batch_size, length, head_dim), device=k_prompt_layer.device)
         new_v_prompt_layer = torch.zeros((n_heads, batch_size, length, head_dim), device=k_prompt_layer.device)
         for h in range(self.num_heads):

@@ -103,6 +103,7 @@ def get_args_parser(subparsers):
   
     # Conv Prompt parameters
     subparsers.add_argument('--kernel_size', default=17, type=int, help='kernel size of the conv prompt')
+    subparsers.add_argument('--dilation_rate', default=1, type=int, help='dilation rate of the conv prompt kernels')
     # Use prompt pool in L2P to implement E-Prompt
     subparsers.add_argument('--prompt_pool', default=True, type=bool,)
     subparsers.add_argument('--size', default=10, type=int,)
